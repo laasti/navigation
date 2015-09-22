@@ -1,0 +1,22 @@
+{
+    "name": "laasti/navigation",
+    "description": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sonia Marquette",
+            "email": "contact@nebulousweb.com"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Laasti\\Navigation\\": "src/"
+        }
+    }
+}
