@@ -8,24 +8,25 @@ namespace Laasti\Navigation;
  */
 class BreadcrumbItem
 {
+
     /**
      * Href
      * @var string
      */
     protected $href;
-    
+
     /**
      * Label
      * @var string 
      */
     protected $label;
-    
+
     /**
      * Attributes
      * @var Attributes 
      */
     protected $attributes;
-    
+
     /**
      * If link is active
      * @var bool 
@@ -71,7 +72,16 @@ class BreadcrumbItem
     {
         return $this->attributes;
     }
-    
+
+    /**
+     * Get attribute from attributes object
+     * @return string
+     */
+    public function getAttribute($attribute)
+    {
+        return $this->attributes->getAttribute($attribute);
+    }
+
     /**
      * If link is active
      * @return bool
@@ -126,6 +136,15 @@ class BreadcrumbItem
     }
 
     /**
+     * Set attribute in attributes object
+     * @return string
+     */
+    public function setAttribute($attribute, $value)
+    {
+        return $this->attributes->setAttribute($attribute, $value);
+    }
+
+    /**
      * Magic method that check if magic property is accessible
      * @param string $name
      * @return bool
@@ -147,6 +166,15 @@ class BreadcrumbItem
         }
 
         return null;
+    }
+
+    public function __toString()
+    {
+        if ($this->getActive()) {
+            return '<span ' . $this->getAttributes() . '>' . $this->getLabel() . '</span>';
+        } else {
+            return '<a href="' . $this->getHref() . '" ' . $this->getAttributes() . '>' . $this->getLabel() . '</a>';
+        }
     }
 
 }
