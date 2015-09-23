@@ -86,7 +86,7 @@ class Breadcrumb
      */
     public function getByLabel($label)
     {        
-        foreach ($this->links as $key => $link) {
+        foreach ($this->links as $link) {
             if ($link->getLabel() === $label) {
                 return $link;
             }
@@ -99,7 +99,7 @@ class Breadcrumb
      * Remove an item by its href
      * @param string $href
      * @param bool $regex Use preg_match
-     * @return BreadcrumbItem
+     * @return Breadcrumb
      */
     public function removeByHref($href, $regex = false)
     {        
@@ -117,7 +117,7 @@ class Breadcrumb
     /**
      * Remove an item by its label
      * @param string $label
-     * @return BreadcrumbItem
+     * @return Breadcrumb
      */
     public function removeByLabel($label)
     {

@@ -65,15 +65,6 @@ class BreadcrumbItem
     }
 
     /**
-     * Get attributes
-     * @return Attributes
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
      * Get attribute from attributes object
      * @return string
      */
@@ -125,23 +116,21 @@ class BreadcrumbItem
     }
 
     /**
-     * Replace attributes
-     * @param Attributes $attributes
-     * @return \Laasti\Navigation\BreadcrumbItem
-     */
-    public function setAttributes($attributes)
-    {
-        $this->attributes = $attributes;
-        return $this;
-    }
-
-    /**
      * Set attribute in attributes object
      * @return string
      */
     public function setAttribute($attribute, $value)
     {
         return $this->attributes->setAttribute($attribute, $value);
+    }
+
+    /**
+     * Remove attribute in attributes object
+     * @return string
+     */
+    public function removeAttribute($attribute)
+    {
+        return $this->attributes->removeAttribute($attribute);
     }
 
     /**

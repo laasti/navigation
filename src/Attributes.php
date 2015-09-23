@@ -24,7 +24,7 @@ class Attributes implements IteratorAggregate, ArrayAccess
 
     public function getAttribute($attribute)
     {
-        return $this->attributes[$attribute];
+        return isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null;
     }
 
     public function setAttributes($attributes)
