@@ -125,6 +125,24 @@ class MenuLink
     {
         return $this->attributes->getAttribute($attribute);
     }
+    
+    /**
+     * Get attributes object
+     * @return Attributes
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+    
+    /**
+     * Get container attributes object
+     * @return Attributes
+     */
+    public function getContainerAttributes()
+    {
+        return $this->containerAttributes;
+    }
 
     /**
      * Get container attribute

@@ -72,6 +72,16 @@ class BreadcrumbItem
     {
         return $this->attributes->getAttribute($attribute);
     }
+    
+    
+    /**
+     * Get attributes object
+     * @return Attributes
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
 
     /**
      * If link is active
