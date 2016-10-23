@@ -107,4 +107,32 @@ class MenuTest extends \PHPUnit_Framework_TestCase
 
     }
 
+
+    public function testMerge()
+    {
+        $activator = new \Laasti\Navigation\Activator('/boo/8/8');
+        $menu = new Menu([
+            [
+                'href' => '/boo',
+                'label' => 'Boo ancestor',
+                'submenu_items' => [
+                    [
+                        'href' => '/boo/8',
+                        'label' => 'Boo parent',
+                        'submenu_items' => [
+                            [
+                                'href' => '/boo/8/8',
+                                'label' => 'Boo active',
+                            ],
+                        ]
+                    ],
+                ]
+            ],
+        ], $activator);
+
+        $menu->merge($menu);
+
+        $this->assertTrue(count($menu->links()) === 2);
+
+    }
 }

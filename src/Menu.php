@@ -51,6 +51,13 @@ class Menu
         return $this;
     }
 
+    public function addLink(MenuLink $link)
+    {
+        $this->links[] = $link;
+
+        return $this;
+    }
+
     public function addFromArray($config)
     {
         //Compare keys from defaults to keys from config to check if its a single item
@@ -333,4 +340,12 @@ class Menu
         }
     }
 
+    public function merge(Menu $menu)
+    {
+        foreach ($menu->links() as $link) {
+            $this->addLink($link);
+        }
+
+        return $this;
+    }
 }
