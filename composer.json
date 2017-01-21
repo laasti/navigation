@@ -1,22 +1,43 @@
 {
     "name": "laasti/navigation",
     "description": "",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Sonia Marquette",
-            "email": "contact@nebulousweb.com"
+            "email": "contact@nebulousweb.com",
+            "homepage": "http://nebulousweb.com/",
+            "role": "Developer"
         }
     ],
+    "support": {
+        "issues": "https://github.com/laasti/navigation/issues",
+        "wiki": "https://github.com/laasti/navigation/wiki"
+    },
     "require": {
+        "php" : "~5.6|~7.0"
     },
     "require-dev": {
-    },
-    "suggest": {
+        "phpunit/phpunit" : "~4.0||~5.0",
+        "squizlabs/php_codesniffer": "^2.3"
     },
     "autoload": {
         "psr-4": {
             "Laasti\\Navigation\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
         }
     }
 }

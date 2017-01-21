@@ -59,8 +59,14 @@ class MenuLink
      * @param array $containerAttributes
      * @param bool $break
      */
-    public function __construct($href, $label, Menu $submenu = null, $attributes = [], $containerAttributes = [], $break = false)
-    {
+    public function __construct(
+        $href,
+        $label,
+        Menu $submenu = null,
+        $attributes = [],
+        $containerAttributes = [],
+        $break = false
+    ) {
         $this->href = $href;
         $this->label = $label;
         $this->submenu = $submenu;
@@ -70,30 +76,23 @@ class MenuLink
     }
 
     /**
-     * Get href
-     * @return string
-     */
-    public function getHref()
-    {
-        return $this->href;
-    }
-
-    /**
-     * Get Label
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
      * Get submenu
      * @return Menu
      */
     public function getSubmenu()
     {
         return $this->submenu;
+    }
+
+    /**
+     * Set submenu
+     * @param Menu $submenu
+     * @return \Laasti\Navigation\MenuLink
+     */
+    public function setSubmenu(Menu $submenu)
+    {
+        $this->submenu = $submenu;
+        return $this;
     }
 
     /**
@@ -125,16 +124,7 @@ class MenuLink
     {
         return $this->attributes->getAttribute($attribute);
     }
-    
-    /**
-     * Get attributes object
-     * @return Attributes
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-    
+
     /**
      * Get container attributes object
      * @return Attributes
@@ -164,35 +154,13 @@ class MenuLink
     }
 
     /**
-     * Set href
-     * @param string $href
+     * Set if break
+     * @param bool $break
      * @return \Laasti\Navigation\MenuLink
      */
-    public function setHref($href)
+    public function setBreak($break)
     {
-        $this->href = $href;
-        return $this;
-    }
-
-    /**
-     * Set Label
-     * @param string $label
-     * @return \Laasti\Navigation\MenuLink
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
-        return $this;
-    }
-
-    /**
-     * Set submenu
-     * @param Menu $submenu
-     * @return \Laasti\Navigation\MenuLink
-     */
-    public function setSubmenu(Menu $submenu)
-    {
-        $this->submenu = $submenu;
+        $this->break = $break;
         return $this;
     }
 
@@ -217,17 +185,6 @@ class MenuLink
     public function setContainerAttribute($containerAttribute, $value)
     {
         $this->containerAttributes->setAttribute($containerAttribute, $value);
-        return $this;
-    }
-
-    /**
-     * Set if break
-     * @param bool $break
-     * @return \Laasti\Navigation\MenuLink
-     */
-    public function setBreak($break)
-    {
-        $this->break = $break;
         return $this;
     }
 
@@ -260,4 +217,52 @@ class MenuLink
         return '<a href="' . $this->getHref() . '" ' . $this->getAttributes() . '>' . $this->getLabel() . '</a>';
     }
 
+    /**
+     * Get href
+     * @return string
+     */
+    public function getHref()
+    {
+        return $this->href;
+    }
+
+    /**
+     * Set href
+     * @param string $href
+     * @return \Laasti\Navigation\MenuLink
+     */
+    public function setHref($href)
+    {
+        $this->href = $href;
+        return $this;
+    }
+
+    /**
+     * Get attributes object
+     * @return Attributes
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * Get Label
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * Set Label
+     * @param string $label
+     * @return \Laasti\Navigation\MenuLink
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+        return $this;
+    }
 }

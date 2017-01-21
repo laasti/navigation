@@ -33,6 +33,24 @@ class Menu
         $this->addFromArray($config);
     }
 
+    public function addFromArray($config)
+    {
+        //Compare keys from defaults to keys from config to check if its a single item
+        //Or an array of items
+        if (count($config) && !count(array_diff(array_keys($config), array_keys($this->defaults)))) {
+            //Convert to array of items
+            $config = [$config];
+        }
+
+        foreach ($config as $itemconfig) {
+            $values = $itemconfig + $this->defaults;
+            $this->add($values['href'], $values['label'], $values['submenu_items'], $values['attributes'],
+                $values['container_attributes'], $values['break']);
+        }
+
+        return $this;
+    }
+
     public function add($href, $label, $submenuItems = [], $attributes = [], $containerAttributes = [], $break = false)
     {
         $link = new MenuLink($href, $label, null, $attributes, $containerAttributes, $break);
@@ -51,28 +69,55 @@ class Menu
         return $this;
     }
 
-    public function addLink(MenuLink $link)
+    /**
+     * Get current activator
+     * @return ActivatorInterface
+     */
+    public function getActivator()
     {
-        $this->links[] = $link;
+        return $this->activator;
+    }
 
+    /**
+     * Set activator
+     * @param \Laasti\Navigation\ActivatorInterface $activator
+     * @return \Laasti\Navigation\Menu
+     */
+    public function setActivator(ActivatorInterface $activator)
+    {
+        $this->activator = $activator;
         return $this;
     }
 
-    public function addFromArray($config)
+    /**
+     * Add classes to the current link and its ancestors
+     * @param \Laasti\Navigation\MenuLink $link
+     */
+    protected function activate(MenuLink $link)
     {
-        //Compare keys from defaults to keys from config to check if its a single item
-        //Or an array of items
-        if (count($config) && !count(array_diff(array_keys($config), array_keys($this->defaults)))) {
-            //Convert to array of items
-            $config = [$config];
-        }
+        $link->setAttribute('class', $link->getAttribute('class') . ' ' . $this->classes['active']);
+        $link->setContainerAttribute('class',
+            $link->getContainerAttribute('class') . ' ' . $this->classes['container_active']);
+        $parent = $link->getParent();
+        $level = 0;
+        while ($parent instanceof Menu || $parent instanceof MenuLink) {
+            if ($parent instanceof Menu) {
+                $parent = $parent->getParent();
+                continue;
+            }
 
-        foreach ($config as $itemconfig) {
-            $values = $itemconfig + $this->defaults;
-            $this->add($values['href'], $values['label'], $values['submenu_items'], $values['attributes'], $values['container_attributes'], $values['break']);
+            if (!$level) {
+                $parent->setAttribute('class', $parent->getAttribute('class') . ' ' . $this->classes['parent']);
+                $parent->setContainerAttribute('class',
+                    $parent->getContainerAttribute('class') . ' ' . $this->classes['container_parent']);
+            } else {
+                $parent->setAttribute('class', $parent->getAttribute('class') . ' ' . $this->classes['ancestor']);
+                $parent->setContainerAttribute('class',
+                    $parent->getContainerAttribute('class') . ' ' . $this->classes['container_ancestor']);
+            }
+            $level++;
+            $parent = $parent->getParent();
         }
-
-        return $this;
     }
 
     /**
@@ -87,11 +132,11 @@ class Menu
     public function getByHref($href, $regex = false, $deep = false, $links = null)
     {
 
-        $links = $links ? : $this->getLinks();
+        $links = $links ?: $this->getLinks();
         foreach ($links as $link) {
             if ($regex && preg_match($href, $link->getHref())) {
                 return $link;
-            } else if ($link->getHref() === $href) {
+            } elseif ($link->getHref() === $href) {
                 return $link;
             }
 
@@ -107,6 +152,15 @@ class Menu
     }
 
     /**
+     * Returns all menu links
+     * @return array
+     */
+    public function &getLinks()
+    {
+        return $this->links;
+    }
+
+    /**
      * Get an item by its label
      *
      * @param string $label
@@ -116,7 +170,7 @@ class Menu
      */
     public function getByLabel($label, $deep = false, $links = null)
     {
-        $links = $links ? : $this->getLinks();
+        $links = $links ?: $this->getLinks();
         foreach ($links as $link) {
             if ($link->getLabel() === $label) {
                 return $link;
@@ -179,7 +233,7 @@ class Menu
             if ($regex && preg_match($href, $link->getHref())) {
                 unset($links[$key]);
                 continue;
-            } else if ($link->getHref() === $href) {
+            } elseif ($link->getHref() === $href) {
                 unset($links[$key]);
                 continue;
             }
@@ -231,50 +285,12 @@ class Menu
     }
 
     /**
-     * Returns all menu links
-     * @return array
-     */
-    public function &getLinks()
-    {
-        return $this->links;
-    }
-
-    /**
-     * Alias of getLinks for more readable templates
-     * @return array
-     */
-    public function &links()
-    {
-        return $this->getLinks();
-    }
-
-    /**
-     * Get current activator
-     * @return ActivatorInterface
-     */
-    public function getActivator()
-    {
-        return $this->activator;
-    }
-
-    /**
      * Get parent (used internally to be able to use recursion)
      * @return MenuLink
      */
     public function getParent()
     {
         return $this->parent;
-    }
-
-    /**
-     * Set activator
-     * @param \Laasti\Navigation\ActivatorInterface $activator
-     * @return \Laasti\Navigation\Menu
-     */
-    public function setActivator(ActivatorInterface $activator)
-    {
-        $this->activator = $activator;
-        return $this;
     }
 
     /**
@@ -312,39 +328,27 @@ class Menu
         return $this;
     }
 
-    /**
-     * Add classes to the current link and its ancestors
-     * @param \Laasti\Navigation\MenuLink $link
-     */
-    protected function activate(MenuLink $link)
-    {
-        $link->setAttribute('class', $link->getAttribute('class') . ' ' . $this->classes['active']);
-        $link->setContainerAttribute('class', $link->getContainerAttribute('class') . ' ' . $this->classes['container_active']);
-        $parent = $link->getParent();
-        $level = 0;
-        while ($parent instanceof Menu || $parent instanceof MenuLink) {
-            if ($parent instanceof Menu) {
-                $parent = $parent->getParent();
-                continue;
-            }
-
-            if (!$level) {
-                $parent->setAttribute('class', $parent->getAttribute('class') . ' ' . $this->classes['parent']);
-                $parent->setContainerAttribute('class', $parent->getContainerAttribute('class') . ' ' . $this->classes['container_parent']);
-            } else {
-                $parent->setAttribute('class', $parent->getAttribute('class') . ' ' . $this->classes['ancestor']);
-                $parent->setContainerAttribute('class', $parent->getContainerAttribute('class') . ' ' . $this->classes['container_ancestor']);
-            }
-            $level++;
-            $parent = $parent->getParent();
-        }
-    }
-
     public function merge(Menu $menu)
     {
         foreach ($menu->links() as $link) {
             $this->addLink($link);
         }
+
+        return $this;
+    }
+
+    /**
+     * Alias of getLinks for more readable templates
+     * @return array
+     */
+    public function &links()
+    {
+        return $this->getLinks();
+    }
+
+    public function addLink(MenuLink $link)
+    {
+        $this->links[] = $link;
 
         return $this;
     }

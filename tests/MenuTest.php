@@ -37,7 +37,8 @@ class MenuTest extends \PHPUnit_Framework_TestCase
     {
         $menu = new Menu([
             [
-                'href' => '/boo', 'label' => 'Boo',
+                'href' => '/boo',
+                'label' => 'Boo',
                 'submenu_items' => [
                     [
                         'href' => '/boo/1',
@@ -97,14 +98,15 @@ class MenuTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
         ], $activator);
-        
+
         $this->assertTrue($menu->getByLabel('Boo ancestor')->getAttribute('class') === ' menu-link-ancestor');
         $this->assertTrue($menu->getByLabel('Boo ancestor')->getContainerAttribute('class') === ' menu-item-ancestor');
         $this->assertTrue($menu->getByLabel('Boo parent', true)->getAttribute('class') === ' menu-link-parent');
-        $this->assertTrue($menu->getByLabel('Boo parent', true)->getContainerAttribute('class') === ' menu-item-parent');
+        $this->assertTrue($menu->getByLabel('Boo parent',
+                true)->getContainerAttribute('class') === ' menu-item-parent');
         $this->assertTrue($menu->getByLabel('Boo active', true)->getAttribute('class') === ' menu-link-active');
-        $this->assertTrue($menu->getByLabel('Boo active', true)->getContainerAttribute('class') === ' menu-item-active');
-
+        $this->assertTrue($menu->getByLabel('Boo active',
+                true)->getContainerAttribute('class') === ' menu-item-active');
     }
 
 
@@ -133,6 +135,5 @@ class MenuTest extends \PHPUnit_Framework_TestCase
         $menu->merge($menu);
 
         $this->assertTrue(count($menu->links()) === 2);
-
     }
 }

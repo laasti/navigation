@@ -10,7 +10,7 @@ class Breadcrumb
 {
     /**
      * Array of breadcrumb links
-     * @var array 
+     * @var array
      */
     protected $links;
 
@@ -24,23 +24,8 @@ class Breadcrumb
     }
 
     /**
-     * Add a link to the breadcrumb
-     * 
-     * @param string $href
-     * @param string $label
-     * @param array $attributes
-     * @return \Laasti\Navigation\Breadcrumb
-     */
-    public function add($href, $label, $attributes = [])
-    {
-        $this->links[] = new BreadcrumbItem($href, $label, $attributes);
-        
-        return $this;
-    }
-
-    /**
      * Batch add links to the breadcrumb
-     * 
+     *
      * @param array $array
      * @return \Laasti\Navigation\Breadcrumb
      */
@@ -51,12 +36,27 @@ class Breadcrumb
             'href' => '#',
             'attributes' => []
         ];
-        
+
         foreach ($array as $config) {
-            $config = $config+$defaults;
+            $config = $config + $defaults;
             $this->add($config['href'], $config['label'], $config['attributes']);
         }
-        
+
+        return $this;
+    }
+
+    /**
+     * Add a link to the breadcrumb
+     *
+     * @param string $href
+     * @param string $label
+     * @param array $attributes
+     * @return \Laasti\Navigation\Breadcrumb
+     */
+    public function add($href, $label, $attributes = [])
+    {
+        $this->links[] = new BreadcrumbItem($href, $label, $attributes);
+
         return $this;
     }
 
@@ -71,11 +71,11 @@ class Breadcrumb
         foreach ($this->links as $link) {
             if ($regex && preg_match($href, $link->getHref())) {
                 return $link;
-            } else if ($link->getHref() === $href) {
+            } elseif ($link->getHref() === $href) {
                 return $link;
             }
         }
-        
+
         return null;
     }
 
@@ -85,13 +85,13 @@ class Breadcrumb
      * @return BreadcrumbItem
      */
     public function getByLabel($label)
-    {        
+    {
         foreach ($this->links as $link) {
             if ($link->getLabel() === $label) {
                 return $link;
             }
         }
-        
+
         return null;
     }
 
@@ -102,15 +102,15 @@ class Breadcrumb
      * @return Breadcrumb
      */
     public function removeByHref($href, $regex = false)
-    {        
+    {
         foreach ($this->links as $key => $link) {
             if ($regex && preg_match($href, $link->getHref())) {
                 unset($this->links[$key]);
-            } else if ($link->getHref() === $href) {
+            } elseif ($link->getHref() === $href) {
                 unset($this->links[$key]);
             }
         }
-        
+
         return $this;
     }
 
@@ -126,11 +126,10 @@ class Breadcrumb
                 unset($this->links[$key]);
             }
         }
-        
-        return $this;
 
+        return $this;
     }
-    
+
     /**
      * Removes all links in the breadcrumb
      * @return \Laasti\Navigation\Breadcrumb
@@ -138,10 +137,19 @@ class Breadcrumb
     public function clear()
     {
         $this->links = [];
-        
+
         return $this;
     }
-    
+
+    /**
+     * Alias of getLinks for more readable templates
+     * @return array
+     */
+    public function links()
+    {
+        return $this->getLinks();
+    }
+
     /**
      * Returns all breadcrumb links
      * @return array
@@ -153,14 +161,5 @@ class Breadcrumb
             $last_link->setActive(true);
         }
         return $this->links;
-    }
-    
-    /**
-     * Alias of getLinks for more readable templates
-     * @return array
-     */
-    public function links()
-    {
-        return $this->getLinks();
     }
 }
