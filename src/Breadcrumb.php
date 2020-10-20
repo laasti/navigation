@@ -12,7 +12,7 @@ class Breadcrumb
      * Array of breadcrumb links
      * @var array 
      */
-    protected $links;
+    protected $links = [];
 
     /**
      * Constructor
