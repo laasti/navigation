@@ -10,21 +10,10 @@ class Attributes implements IteratorAggregate, ArrayAccess
 {
 
     protected $attributes = [];
-    
+
     public function __construct($attributes = [])
     {
         $this->setAttributes($attributes);
-    }
-
-    public function setAttribute($attribute, $value)
-    {
-        $this->attributes[$attribute] = $value;
-        return $this;
-    }
-
-    public function getAttribute($attribute)
-    {
-        return isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null;
     }
 
     public function setAttributes($attributes)
@@ -33,20 +22,12 @@ class Attributes implements IteratorAggregate, ArrayAccess
         return $this;
     }
 
-    public function removeAttribute($attribute)
-    {
-        if (isset($this->attributes[$attribute])) {
-            unset($this->attributes[$attribute]);
-        }
-        return $this;
-    }
-
     public function __toString()
     {
         $attribute_str = ' ';
-        
+
         foreach ($this->attributes as $attribute => $value) {
-            $attribute_str .= $attribute.'="'.  htmlspecialchars((string)$value, ENT_QUOTES).'" ';
+            $attribute_str .= $attribute . '="' . htmlspecialchars((string)$value, ENT_QUOTES) . '" ';
         }
 
         return $attribute_str;
@@ -62,9 +43,20 @@ class Attributes implements IteratorAggregate, ArrayAccess
         $this->setAttribute($offset, $value);
     }
 
+    public function setAttribute($attribute, $value)
+    {
+        $this->attributes[$attribute] = $value;
+        return $this;
+    }
+
     public function offsetGet($offset)
     {
         return $this->getAttribute($offset);
+    }
+
+    public function getAttribute($attribute)
+    {
+        return isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null;
     }
 
     public function offsetUnset($offset)
@@ -72,9 +64,16 @@ class Attributes implements IteratorAggregate, ArrayAccess
         $this->removeAttribute($offset);
     }
 
+    public function removeAttribute($attribute)
+    {
+        if (isset($this->attributes[$attribute])) {
+            unset($this->attributes[$attribute]);
+        }
+        return $this;
+    }
+
     public function getIterator()
     {
         return new ArrayIterator($this->attributes);
     }
-
 }

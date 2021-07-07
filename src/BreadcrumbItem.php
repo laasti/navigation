@@ -17,19 +17,19 @@ class BreadcrumbItem
 
     /**
      * Label
-     * @var string 
+     * @var string
      */
     protected $label;
 
     /**
      * Attributes
-     * @var Attributes 
+     * @var Attributes
      */
     protected $attributes;
 
     /**
      * If link is active
-     * @var bool 
+     * @var bool
      */
     protected $active;
 
@@ -47,82 +47,12 @@ class BreadcrumbItem
     }
 
     /**
-     * Get href
-     * @return string
-     */
-    public function getHref()
-    {
-        return $this->href;
-    }
-
-    /**
-     * Get label
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
      * Get attribute from attributes object
      * @return string
      */
     public function getAttribute($attribute)
     {
         return $this->attributes->getAttribute($attribute);
-    }
-    
-    
-    /**
-     * Get attributes object
-     * @return Attributes
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * If link is active
-     * @return bool
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
-
-    /**
-     * Set if link is active
-     * @param bool $active
-     * @return \Laasti\Navigation\BreadcrumbItem
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-        return $this;
-    }
-
-    /**
-     * Set href
-     * @param string $href
-     * @return \Laasti\Navigation\BreadcrumbItem
-     */
-    public function setHref($href)
-    {
-        $this->href = $href;
-        return $this;
-    }
-
-    /**
-     * Set label
-     * @param string $label
-     * @return \Laasti\Navigation\BreadcrumbItem
-     */
-    public function setLabel($label)
-    {
-        $this->label = $label;
-        return $this;
     }
 
     /**
@@ -176,4 +106,72 @@ class BreadcrumbItem
         }
     }
 
+    /**
+     * If link is active
+     * @return bool
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set if link is active
+     * @param bool $active
+     * @return \Laasti\Navigation\BreadcrumbItem
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * Get attributes object
+     * @return Attributes
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * Get label
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * Set label
+     * @param string $label
+     * @return \Laasti\Navigation\BreadcrumbItem
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+        return $this;
+    }
+
+    /**
+     * Get href
+     * @return string
+     */
+    public function getHref()
+    {
+        return $this->href;
+    }
+
+    /**
+     * Set href
+     * @param string $href
+     * @return \Laasti\Navigation\BreadcrumbItem
+     */
+    public function setHref($href)
+    {
+        $this->href = $href;
+        return $this;
+    }
 }

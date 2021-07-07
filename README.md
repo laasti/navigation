@@ -1,33 +1,81 @@
-# Laasti/Navigation
+# Laasti / Navigation
 
-A collection of PHP objects to facilitate manipulation of UI navigation elements: menus and breadcrumbs.
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Build Status][ico-travis]][link-travis]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![Total Downloads][ico-downloads]][link-downloads]
 
-## Installation
+This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
+PSRs you support to avoid any confusion with users and contributors.
+
+## Structure
+
+If any of the following are applicable to your project, then the directory structure should follow industry best practises by being named the following.
 
 ```
-composer require laasti/navigation
+bin/        
+config/
+src/
+tests/
+vendor/
+```
+
+
+## Install
+
+Via Composer
+
+``` bash
+$ composer require laasti/navigation
 ```
 
 ## Usage
 
-TODO
+``` php
+$skeleton = new League\Skeleton();
+echo $skeleton->echoPhrase('Hello, League!');
+```
+
+## Change log
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Testing
+
+``` bash
+$ composer test
+```
 
 ## Contributing
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
 
-## History
+## Security
 
-See CHANGELOG.md for more information.
+If you discover any security related issues, please email contact@nebulousweb.com instead of using the issue tracker.
 
 ## Credits
 
-Author: Sonia Marquette (@nebulousGirl)
+- [Sonia Marquette][link-author]
+- [All Contributors][link-contributors]
 
 ## License
 
-Released under the MIT License. See LICENSE.txt file.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+[ico-version]: https://img.shields.io/packagist/v/laasti/navigation.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/laasti/navigation/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/laasti/navigation.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/laasti/navigation.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/laasti/navigation.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/laasti/navigation
+[link-travis]: https://travis-ci.org/laasti/navigation
+[link-scrutinizer]: https://scrutinizer-ci.com/g/laasti/navigation/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/laasti/navigation
+[link-downloads]: https://packagist.org/packages/laasti/navigation
+[link-author]: https://github.com/nebulousGirl
+[link-contributors]: ../../contributors

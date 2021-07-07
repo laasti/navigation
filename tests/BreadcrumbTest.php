@@ -24,7 +24,7 @@ class BreadcrumbTest extends \PHPUnit_Framework_TestCase
                 'label' => 'Peter'
             ]
         ]);
-        
+
         $last = $breadcrumb->links();
         $this->assertTrue(end($last)->active);
         $this->assertTrue($breadcrumb->getByLabel('Home')->getHref() === '#');
@@ -33,13 +33,12 @@ class BreadcrumbTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($breadcrumb->getByHref('/^\/ab/', true)->getLabel() === 'About');
         $this->assertTrue($breadcrumb->getByHref('/adsa?7&"bout/', true) === null);
         $this->assertTrue($breadcrumb->getByLabel('/adsa?7&"bout/') === null);
-        
+
         $breadcrumb->removeByLabel('Peter');
         $breadcrumb->removeByHref('/about/the-team');
         $breadcrumb->removeByHref('#^/about#', true);
         $this->assertTrue(count($breadcrumb->links()) === 1);
         $breadcrumb->clear();
         $this->assertTrue(count($breadcrumb->links()) === 0);
-        
     }
 }
